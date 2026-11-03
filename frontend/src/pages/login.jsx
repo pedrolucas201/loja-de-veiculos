@@ -8,23 +8,21 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { login } = useAuth(); // <--- Obtenha a função 'login' do seu AuthContext
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post("/auth/login", { email, password });
-      const { token } = res.data; // <--- Extraia o token da resposta
+      const { token } = res.data;
 
-      localStorage.setItem("token", token); // <-- Linha que salva
-      console.log("Token salvo no localStorage:", token); // <-- Adicione este log
-      console.log("Estado atual do localStorage:", localStorage.getItem("token")); // <-- E este
+      localStorage.setItem("token", token);
   
 
-      login(token); // <--- Chame a função 'login' do AuthContext, passando o token
+      login(token);
 
       router.push("/dashboard"); // Redireciona para o dashboard após o login
-    } catch (error) { // <--- É uma boa prática capturar o erro para depuração
+    } catch (error) {
       console.error("Erro no login:", error);
       alert("Erro no login: Credenciais inválidas ou problema de conexão.");
     }

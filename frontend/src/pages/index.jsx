@@ -7,7 +7,6 @@ import api from "../services/api";
 import AnuncioCard from "../components/AnuncioCard";
 import Carrossel from "../components/Carrossel";
 import Filtros from "../components/Filtros"; 
-import { useTheme } from "@chakra-ui/react";
 import { useAuth } from "../hooks/useAuth";
 
 // Imagens do Carrossel
@@ -19,12 +18,6 @@ import imagem3 from '../assets/moto3.jpg';
 
 export default function Home() {
 
-  try {
-    const theme = useTheme();
-    console.log("Chakra UI Theme loaded successfully:", theme);
-  } catch (e) {
-    console.error("Failed to load Chakra UI Theme in Home:", e);
-  }
 
   const [anuncios, setAnuncios] = useState([]); // Todos os anúncios carregados da API
   const [marcas, setMarcas] = useState([]);
@@ -33,7 +26,6 @@ export default function Home() {
   // Estados dos filtros
   const [filtroMarca, setFiltroMarca] = useState("");
   const [filtroAno, setFiltroAno] = useState("");
-  // ALTERAÇÃO: Remover filtroPreco, adicionar filtroPrecoMin e filtroPrecoMax
   const [filtroPrecoMin, setFiltroPrecoMin] = useState(""); // Estado para o preço mínimo selecionado no slider
   const [filtroPrecoMax, setFiltroPrecoMax] = useState(""); // Estado para o preço máximo selecionado no slider
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,8 +64,7 @@ export default function Home() {
         setMarcas(marcasUnicas);
         setAnos(anosUnicos);
 
-        // ALTERAÇÃO: Inicializar os filtros de preço com os valores globais após carregar os anúncios
-        // Isso garante que o slider comece na faixa completa
+        // O slider de preço começa na faixa completa dos anúncios
         if (fetchedAnuncios.length > 0) {
           const initialMinPrice = Math.min(...fetchedAnuncios.map((a) => a.preco));
           const initialMaxPrice = Math.max(...fetchedAnuncios.map((a) => a.preco));
@@ -104,7 +95,7 @@ export default function Home() {
       const passaMarca = !filtroMarca || a.marca === filtroMarca;
       const passaAno = !filtroAno || a.ano === parseInt(filtroAno, 10);
 
-      // ALTERAÇÃO: Lógica de filtragem de preço para usar min/max do slider
+      // Faixa de preço do slider
       const min = parseFloat(filtroPrecoMin);
       const max = parseFloat(filtroPrecoMax);
 
@@ -121,7 +112,6 @@ export default function Home() {
       return passaMarca && passaAno && passaPreco && passaPesquisa;
     });
   }, [anuncios, filtroMarca, filtroAno, filtroPrecoMin, filtroPrecoMax, searchTerm]);
-  // ALTERAÇÃO: Adicionar filtroPrecoMin e filtroPrecoMax como dependências do useMemo
 
   // Função para remover um anúncio da lista sem recarregar a página
   const handleAnuncioExcluido = (idExcluido) => {
@@ -184,7 +174,6 @@ export default function Home() {
             anos={anos}
             setFiltroMarca={setFiltroMarca}
             setFiltroAno={setFiltroAno}
-            // ALTERAÇÃO: Passar novos props para o slider de preço
             filtroPrecoMin={filtroPrecoMin}
             setFiltroPrecoMin={setFiltroPrecoMin}
             filtroPrecoMax={filtroPrecoMax}
@@ -201,7 +190,6 @@ export default function Home() {
 
         {!loading && !error && (
           <>
-          {console.log("É admin?", isAdmin)}
             {anunciosFiltrados.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
                 {anunciosFiltrados.map((anuncio) => (

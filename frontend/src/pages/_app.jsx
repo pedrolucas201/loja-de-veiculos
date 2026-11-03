@@ -4,19 +4,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChakraProvider } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-import { AuthProvider, useAuth } from '../contexts/AuthContext'; // Importe AuthProvider e useAuth do contexto
+import { AuthProvider, useAuth } from '../contexts/AuthContext';
 
 export default function App({ Component, pageProps }) {
   return (
-    <AuthProvider> {/* <--- Envolva TUDO com AuthProvider */}
+    <AuthProvider>
       <AppContent Component={Component} pageProps={pageProps} />
     </AuthProvider>
   );
 }
 
 function AppContent({ Component, pageProps }) {
-  const { isAdmin, loading } = useAuth(); // Agora useAuth vem do contexto e pode ter 'loading'
-  console.log("AppContent: useAuth retornou isAdmin:", isAdmin, "Loading:", loading); // LOG 11
+  const { isAdmin, loading } = useAuth();
 
   if (loading) {
     return (

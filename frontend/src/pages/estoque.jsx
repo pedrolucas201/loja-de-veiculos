@@ -26,7 +26,7 @@ export default function Estoque() {
     fetchAnuncios();
   }, []);
 
-  // ✅ NOVO: Use useMemo para extrair valores únicos para os filtros
+  // Valores únicos de marca, modelo e ano para os filtros
   const dadosParaFiltros = useMemo(() => {
     const todasMarcas = [...new Set(anuncios.map(a => a.marca))].filter(Boolean).sort();
     const todosModelos = [...new Set(anuncios.map(a => a.modelo))].filter(Boolean).sort();
@@ -44,7 +44,7 @@ export default function Estoque() {
       (!filtros.marca || a.marca === filtros.marca) &&
       (!filtros.modelo || a.modelo === filtros.modelo) &&
       (!filtros.ano || a.ano === parseInt(filtros.ano)) &&
-      // ✅ Corrigido: Lógica para faixa de preço
+      // Faixa de preço
       (!filtros.minPreco || preco >= minPreco) &&
       (!filtros.maxPreco || preco <= maxPreco)
     );
@@ -69,7 +69,7 @@ export default function Estoque() {
           />
           <h2 className="text-xl font-semibold mb-4">Filtros</h2>
           
-          {/* ✅ Corrigido: Filtro de Marca */}
+          {/* Filtro de marca */}
           <select
             className="w-full mb-3 p-2 bg-neutral-700 rounded"
             value={filtros.marca}
@@ -81,7 +81,7 @@ export default function Estoque() {
             ))}
           </select>
 
-          {/* ✅ Corrigido: Filtro de Modelo */}
+          {/* Filtro de modelo */}
           <select
             className="w-full mb-3 p-2 bg-neutral-700 rounded"
             value={filtros.modelo}
@@ -93,7 +93,7 @@ export default function Estoque() {
             ))}
           </select>
 
-          {/* ✅ Corrigido: Filtro de Ano */}
+          {/* Filtro de ano */}
           <select
             className="w-full mb-3 p-2 bg-neutral-700 rounded"
             value={filtros.ano}
@@ -105,7 +105,7 @@ export default function Estoque() {
             ))}
           </select>
 
-          {/* ✅ NOVO: Filtros de Preço Mínimo e Máximo */}
+          {/* Preço mínimo e máximo */}
           <div className="mb-3">
               <label className="block text-sm font-medium text-gray-300">Preço Mínimo</label>
               <input
@@ -136,7 +136,6 @@ export default function Estoque() {
             <div key={a._id} className="bg-neutral-800 rounded-lg shadow overflow-hidden hover:shadow-xl">
               {a.fotos?.[0] && (
                 <img
-                  // ✅ CORRIGIDO: Usando NEXT_PUBLIC_UPLOAD_URL ou o caminho correto
                   src={`${process.env.NEXT_PUBLIC_UPLOAD_URL}${a.fotos[0]}`}
                   alt={a.modelo}
                   className="w-full h-48 object-cover"

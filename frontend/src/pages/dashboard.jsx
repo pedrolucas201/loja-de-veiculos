@@ -41,7 +41,6 @@ useEffect(() => {
       const anosUnicos = [...new Set(anuncios.map((a) => a.ano))].sort((a, b) => b - a);
       setAnos(anosUnicos);
 
-      console.log("Dashboard: Anúncios carregados com sucesso.");
     } catch (error) {
       console.error("Dashboard: Erro ao carregar anúncios:", error);
 
