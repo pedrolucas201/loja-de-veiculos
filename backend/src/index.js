@@ -4,8 +4,6 @@ require('dotenv').config();
 require('./config/db');
 const path = require('path');
 
-console.log('Chave JWT:', process.env.JWT_SECRET);
-
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const anunciosRoutes = require('./routes/anuncios');

@@ -5,7 +5,6 @@ import { useState } from 'react';
 // 1. Receba 'isAdmin' como uma propriedade desestruturada do objeto de props
 export default function Navbar({ isAdmin }) {
 
-  console.log("Navbar renderizado. isAdmin:", isAdmin); // Verifique este log
 
   const [open, setOpen] = useState(false);
 
@@ -54,11 +53,7 @@ export default function Navbar({ isAdmin }) {
             </li>
           ))}
           {isAdmin && (
-            
-            <> {
-              console.log("isAdmin é true, renderizando links de admin!") // Este log deve aparecer
-            }
-
+            <>
               {adminLinks.map((l) => (
                 <li key={l.href} className="mb-2 md:mb-0">
                   <Link href={l.href} className={l.className}>

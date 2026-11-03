@@ -9,7 +9,6 @@ export default function Contato() {
     // Aqui você pode enviar os dados do formulário para o servidor
     const whatsapp = `https://api.whatsapp.com/send?phone=5581993259534&text=Nome: ${form.nome}%0AEmail: ${form.email}%0ATelefone: ${form.telefone}%0AMensagem: ${form.mensagem}`;
     window.open(whatsapp, '_blank'); // Abre o WhatsApp com os dados do formulário
-    console.log("Formulário enviado:", form);
     alert("Mensagem enviada com sucesso!");
     setForm({ nome:'', email:'', telefone:'', mensagem:'' }); // Limpa o formulário
   };
